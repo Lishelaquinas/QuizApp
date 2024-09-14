@@ -15,9 +15,14 @@ public class QuestionService {
    @Autowired
     private QuestionRepository questionRepository;
 
-    public List<Question> getAllquestions()
+    public ResponseEntity<?> getAllquestions()
     {
-        return questionRepository.findAll();
+        try{
+            return new ResponseEntity<>(questionRepository.findAll(), HttpStatus.OK);
+        }
+        catch(Exception e){
+            return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
+         }
     }
 
     public List<Question> getQuestionByCategory(String category) {
@@ -29,6 +34,23 @@ public class QuestionService {
             return new ResponseEntity<>("sucess", HttpStatus.OK);
         }
         return new ResponseEntity<>("Failed", HttpStatus.INTERNAL_SERVER_ERROR);
+    }
+
+    public ResponseEntity<String> updateProduct(Question question) {
+        if (questionRepository.save(question) != null){
+            return new ResponseEntity<>("sucess", HttpStatus.OK);
+        }
+        return new ResponseEntity<>("Failed", HttpStatus.INTERNAL_SERVER_ERROR);
+    }
+
+    public ResponseEntity<String> deleteProduct(int productId) {
+     try{
+        questionRepository.deleteById(productId);
+        return new ResponseEntity<>("Success", HttpStatus.OK);
+     }
+     catch(Exception e){
+        return new ResponseEntity<>(e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
+     }
     }
 
    

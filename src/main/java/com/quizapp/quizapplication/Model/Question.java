@@ -1,5 +1,6 @@
 package com.quizapp.quizapplication.Model;
 
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -20,6 +21,8 @@ public class Question {
     private String rightAnswer;
     private String difficultyLevel;
     private String category;
+
+    
 
     
 }
